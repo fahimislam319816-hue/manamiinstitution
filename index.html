@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পাঞ্জাবির কালেকশন - অনলাইন অর্ডার</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Bengali and English text -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
+            background-color: #f7f7f7;
+        }
+        /* Message Box Styling */
+        #messageBox {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none; /* Initially hidden */
+            text-align: center;
+        }
+    </style>
+    <!-- Facebook Pixel Base Code for Meta Conversion Tracking -->
+    <!-- আপনার পিক্সেল আইডিটি 'YOUR_PIXEL_ID' এর জায়গায় বসিয়ে দিন -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '597399073304340'); // এখানে আপনার পিক্সেল আইডি দিন
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=597399073304340&ev=PageView&noscript=1" />
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+</head>
+<body class="bg-gray-100 antialiased">
+
+    <!-- Header Section: মোবাইল ডিভাইসের জন্য ফিক্সড হেডার, যা উপরে থাকে -->
+    <header class="bg-white shadow-md fixed w-full top-0 z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-gray-800 flex items-center">
+                <!-- লোগো এবং নাম -->
+                <img src="http://manamiinstitution.page.gd/wp-content/uploads/2025/08/MANAMI-منامي-PNG-Granada-Georgia-scaled.png" alt="Manami Logo" class="inline-block h-6 w-6 md:h-8 md:w-8 mr-2">
+                <span class="text-gray-600">Manami </span> منامي
+            </h1>
+            <div class="flex items-center space-x-2 md:space-x-4">
+                
+                <!-- কল বোতাম -->
+                <a href="tel:+8801560025917" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-300 relative group">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M6.62 10.79a15.093 15.093 0 006.59 6.59l2.48-2.48a1 1 0 011.09-.23 11.233 11.233 0 003.54.55 1 1 0 011 .99v3.42a1 1 0 01-1 1A18.067 18.067 0 013 4a1 1 0 011-1h3.42a1 1 0 01.99 1 11.233 11.233 0 00.55 3.54 1 1 0 01-.23 1.09L6.62 10.79z" />
+                    </svg>
+                </a>
+
+                <!-- হোয়াটসঅ্যাপ বোতাম -->
+                <a href="https://wa.me/+8801560025917" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-300 relative group">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M16.594 13.914l-1.396-.704a.633.633 0 00-.735.195l-.752.923a.317.317 0 01-.365.076c-1.285-.56-2.31-1.002-3.39-1.92a9.14 9.14 0 01-1.803-1.895l-.94-.881a.633.633 0 00-.092-.54l.79-.99a.317.317 0 01.127-.375l.62-.31a.633.633 0 00.32-.48l-.05-.884a.633.633 0 00-.67-.546l-1.742-.317a.633.633 0 00-.67.546c-.09.61.164 1.344.254 1.484a.633.633 0 00.08.315c.34.422.56 1.092 1.48 2.378 1.09 1.42 2.376 2.47 3.992 3.12 1.432.585 2.128.528 2.68.21a.317.317 0 01.16-.046l1.325-.506a.633.633 0 00.505-.595l.084-.668a.633.633 0 00-.546-.67zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.328 15.353l-.887.887a.633.633 0 01-.896 0c-.82-.82-1.99-1.99-2.812-2.812-.82-.82-.82-2.14 0-2.96l.886-.886a.633.633 0 01.896 0l2.812 2.812a.633.633 0 010 .896zM17.152 7.027a.633.633 0 00-.73-.122l-1.39.704a.633.633 0 00-.735.195l-.752.923a.317.317 0 01-.365.076c-1.285-.56-2.31-1.002-3.39-1.92a9.14 9.14 0 01-1.803-1.895l-.94-.881a.633.633 0 00-.092-.54l.79-.99a.317.317 0 01.127-.375l.62-.31a.633.633 0 00.32-.48l-.05-.884a.633.633 0 00-.67-.546l-1.742-.317a.633.633 0 00-.67.546c-.09.61.164 1.344.254 1.484a.633.633 0 00.08.315c.34.422.56 1.092 1.48 2.378 1.09 1.42 2.376 2.47 3.992 3.12 1.432.585 2.128.528 2.68.21a.317.317 0 01.16-.046l1.325-.506a.633.633 0 00.505-.595l.084-.668a.633.633 0 00-.546-.67z"/>
+                    </svg>
+                </a>
+
+                <div class="relative">
+                    <button id="cartIcon" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors duration-300 relative">
+                        <!-- কার্ট আইকন -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5.4M7 13a2 2 0 100 4m0-4a2 2 0 110 4m7-4a2 2 0 100 4m0-4a2 2 0 110 4" />
+                        </svg>
+                        <span id="cartCount" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-gray-800 rounded-full">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Section: মোবাইল ডিভাইসের জন্য প্যাডিং কমানো হয়েছে -->
+    <main class="container mx-auto p-2 md:p-8 pt-24">
+        
+        <!-- Product Grid Section: মোবাইল-ফার্স্ট গ্রিড লেআউট -->
+        <section id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <!-- Product cards will be dynamically inserted here by JavaScript -->
+        </section>
+        
+        <!-- Order Form Section: মোবাইল ডিভাইসের জন্য প্যাডিং ও মার্জিন অপ্টিমাইজ করা হয়েছে -->
+        <section id="orderFormSection" class="hidden mt-8 md:mt-12 bg-white p-6 md:p-12 rounded-3xl shadow-lg">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-6">আপনার অর্ডার</h2>
+            <div id="cartSummary" class="mb-6 md:mb-8 p-4 rounded-xl bg-gray-50 border border-gray-200">
+                <!-- Selected products will be listed here -->
+            </div>
+            
+            <form id="customerInfoForm" class="space-y-4 md:space-y-6">
+                <!-- Customer Information Fields -->
+                <div>
+                    <label for="name" class="block text-gray-700 font-semibold mb-2">নামঃ</label>
+                    <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500">
+                </div>
+                <div>
+                    <label for="phone" class="block text-gray-700 font-semibold mb-2">ফোন নাম্বারঃ</label>
+                    <input type="tel" id="phone" name="phone" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500">
+                </div>
+                <div>
+                    <label for="address" class="block text-gray-700 font-semibold mb-2">সম্পূর্ণ ঠিকানাঃ</label>
+                    <textarea id="address" name="address" rows="3" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"></textarea>
+                </div>
+                
+                <!-- Delivery Charge Selection -->
+                <div>
+                    <label for="deliveryLocation" class="block text-gray-700 font-semibold mb-2">ডেলিভারি চার্জঃ</label>
+                    <select id="deliveryLocation" name="deliveryLocation" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500">
+                        <option value="Dhaka">ঢাকার ভিতরে (৳70)</option>
+                        <option value="Outside Dhaka">ঢাকার বাইরে (৳120)</option>
+                    </select>
+                </div>
+
+                <!-- Total Price Summary -->
+                <div class="flex justify-between items-center text-gray-900 font-bold text-lg md:text-xl pt-4 border-t border-gray-200">
+                    <p>সর্বমোট মূল্যঃ</p>
+                    <p id="finalTotal">৳0</p>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" id="placeOrderBtn" class="w-full bg-gray-800 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:bg-gray-900 transition-colors duration-300">
+                    অর্ডার নিশ্চিত করুন
+                </button>
+            </form>
+        </section>
+
+        <!-- Modals: মোবাইল ডিভাইসের জন্য সুন্দরভাবে ডিজাইন করা হয়েছে -->
+        <!-- Product Selection Modal -->
+        <div id="productModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 hidden z-50">
+            <div class="bg-white rounded-3xl p-6 md:p-8 max-w-xl w-full shadow-2xl">
+                <h3 id="modalTitle" class="text-xl md:text-2xl font-bold text-gray-800 mb-4"></h3>
+                <div class="space-y-4">
+                    <div>
+                        <label for="modalSize" class="block text-gray-700 font-semibold mb-2">সাইজঃ</label>
+                        <select id="modalSize" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500">
+                            <!-- Sizes will be added here dynamically -->
+                        </select>
+                    </div>
+                    <div>
+                        <label for="modalQuantity" class="block text-gray-700 font-semibold mb-2">পরিমাণঃ</label>
+                        <input type="number" id="modalQuantity" value="1" min="1" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500">
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-4 mt-6">
+                    <button id="modalCloseBtn" type="button" class="px-6 py-2 rounded-lg text-gray-700 bg-gray-200 hover:bg-gray-300 transition-colors duration-300">
+                        বাতিল করুন
+                    </button>
+                    <button id="addToCartBtn" type="button" class="px-6 py-2 rounded-lg text-white bg-gray-800 hover:bg-gray-900 transition-colors duration-300">
+                        কার্টে যোগ করুন
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- New: Continue Shopping Confirmation Modal -->
+        <div id="continueShoppingModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 hidden z-50">
+            <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl text-center">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">আপনি কি আরও পাঞ্জাবি অর্ডার করতে চাইছেন?</h3>
+                <div class="flex justify-center space-x-4 mt-6">
+                    <button id="continueShoppingYesBtn" type="button" class="px-6 py-2 rounded-lg text-white bg-gray-800 hover:bg-gray-900 transition-colors duration-300">
+                        হ্যাঁ
+                    </button>
+                    <button id="continueShoppingNoBtn" type="button" class="px-6 py-2 rounded-lg text-gray-700 bg-gray-200 hover:bg-gray-300 transition-colors duration-300">
+                        না
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Confirmation Modal -->
+        <div id="confirmationModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 hidden z-50">
+            <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl text-center">
+                <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-4">অর্ডার সফল হয়েছে!</h3>
+                <p id="confirmationMessage" class="text-gray-700 mb-6"></p>
+                <button id="confirmationCloseBtn" class="px-6 py-2 rounded-lg text-white bg-gray-800 hover:bg-gray-900 transition-colors duration-300">
+                    বন্ধ করুন
+                </button>
+            </div>
+        </div>
+        
+        <!-- Message Box for alerts -->
+        <div id="messageBox" class="hidden"></div>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-gray-300 py-6 md:py-8 text-center">
+        <p>&copy; ২০২৪ আপনার স্টোর। সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Product Data Array ---
+            // এখানে আপনি আপনার পাঞ্জাবির ছবিগুলোর URL যোগ করতে পারেন।
+            // "imageUrl" এর মধ্যে আপনার ছবির লিংকটি বসিয়ে দিন।
+            const products = [
+                { id: 'P-01', name: 'ডায়মন্ড সফট কটন', price: 950, sizes: ['M', 'L', 'XL', 'XXL'], imageUrl: 'http://manamiinstitution.page.gd/wp-content/uploads/2025/08/P-01_20250803_003113_0000_11zon.jpg' },
+                { id: 'P-02', name: 'ডায়মন্ড সফট কটন', price: 950, sizes: ['M', 'L', 'XL', 'XXL'], imageUrl: 'http://manamiinstitution.page.gd/wp-content/uploads/2025/08/P-02_20250803_003113_0001_11zon.jpg' },
+                { id: 'P-03', name: 'ডায়মন্ড সফট কটন', price: 950, sizes: ['M', 'L', 'XL', 'XXL'], imageUrl: 'http://manamiinstitution.page.gd/wp-content/uploads/2025/08/P-03_20250803_003113_0002_11zon.jpg' },
+                { id: 'P-04', name: 'পিওর কটন পাঞ্জাবি', price: 1050, sizes: ['M', 'L', 'XL'], imageUrl: 'http://manamiinstitution.page.gd/wp-content/uploads/2025/08/Premium-04-2_20250803_003113_0004_11zon.jpg' },
+                { id: 'P-05', name: 'পিওর কটন পাঞ্জাবি', price: 1050, sizes: ['M', 'L', 'XL'], imageUrl: 'http://manamiinstitution.page.gd/wp-content/uploads/2025/08/Premium-05-2_20250803_003113_0006_11zon.jpg' },
+                { id: 'P-06', name: 'SP ধুতি পাঞ্জাবি', price: 850, sizes: ['M', 'L', 'XL', 'XXL'], imageUrl: 'http://manamiinstitution.page.gd/wp-content/uploads/2025/08/Premium-06_20250803_003113_0007_11zon-scaled.jpg' },
+                { id: 'P-07', name: 'জামদানি ধুতি পাঞ্জাবি', price: 850, sizes: ['M', 'L', 'XL', 'XXL'], imageUrl: 'http://manamiinstitution.page.gd/wp-content/uploads/2025/08/P-07_20250803_003113_0008_11zon.jpg' },
+                // নতুন প্রোডাক্ট যোগ করা হয়েছে
+                { id: 'P-08', name: 'সুন্নতি কটন পায়জামা', price: 390, sizes: ['৩৪', '৩৬', '৩৮', '৪০', '৪২'], imageUrl: 'http://manamiinstitution.page.gd/wp-content/uploads/2025/08/P-00_20250820_155509_0000-min-scaled.jpg' }
+            ];
+
+            // --- DOM Elements ---
+            const productGrid = document.getElementById('productGrid');
+            const cartIcon = document.getElementById('cartIcon');
+            const cartCount = document.getElementById('cartCount');
+            const orderFormSection = document.getElementById('orderFormSection');
+            const cartSummary = document.getElementById('cartSummary');
+            const finalTotalElement = document.getElementById('finalTotal');
+            const deliveryLocationSelect = document.getElementById('deliveryLocation');
+            const customerInfoForm = document.getElementById('customerInfoForm');
+            const messageBox = document.getElementById('messageBox');
+
+            // Modal Elements
+            const productModal = document.getElementById('productModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalSizeSelect = document.getElementById('modalSize');
+            const modalQuantityInput = document.getElementById('modalQuantity');
+            const modalCloseBtn = document.getElementById('modalCloseBtn');
+            const addToCartBtn = document.getElementById('addToCartBtn');
+            const confirmationModal = document.getElementById('confirmationModal');
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const confirmationCloseBtn = document.getElementById('confirmationCloseBtn');
+            
+            // New Modal Elements
+            const continueShoppingModal = document.getElementById('continueShoppingModal');
+            const continueShoppingYesBtn = document.getElementById('continueShoppingYesBtn');
+            const continueShoppingNoBtn = document.getElementById('continueShoppingNoBtn');
+
+
+            // --- State Variables ---
+            let cart = []; // Array to store selected products
+            let currentProduct = null; // To hold the product being configured in the modal
+            const deliveryCharges = {
+                'Dhaka': 70,
+                'Outside Dhaka': 120
+            };
+            
+            // --- Core Functions ---
+
+            // Function to show a message to the user
+            function showMessage(message) {
+                messageBox.textContent = message;
+                messageBox.classList.remove('hidden');
+                setTimeout(() => {
+                    messageBox.classList.add('hidden');
+                }, 5000); // Hide after 5 seconds to give user time to read
+            }
+
+            // Function to render all product cards on the page
+            function renderProducts() {
+                productGrid.innerHTML = '';
+                products.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'bg-white rounded-2xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 transform';
+                    // New: onerror attribute added for image fallback
+                    productCard.innerHTML = `
+                        <img src="${product.imageUrl}" alt="${product.name}" class="w-full h-64 object-cover" onerror="this.src='https://placehold.co/400x400/CCCCCC/333333?text=Image+Not+Found'">
+                        <div class="p-6 text-center">
+                            <h3 class="text-xl font-semibold text-gray-800">${product.name}</h3>
+                            <p class="text-gray-600 mt-2">৳${product.price}</p>
+                            <button data-product-id="${product.id}" class="add-to-cart-btn mt-4 w-full bg-gray-800 text-white py-2 px-6 rounded-full hover:bg-gray-900 transition-colors duration-300">
+                                কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    `;
+                    productGrid.appendChild(productCard);
+                });
+            }
+
+            // Function to open the product modal
+            function openProductModal(productId) {
+                currentProduct = products.find(p => p.id === productId);
+                if (!currentProduct) return;
+                
+                modalTitle.textContent = `${currentProduct.name} - ৳${currentProduct.price}`;
+                modalSizeSelect.innerHTML = '';
+                
+                // Add a default disabled option
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                // P-08 পণ্যের জন্য কন্ডিশন যোগ করা হয়েছে
+                if (currentProduct.id === 'P-08') {
+                    defaultOption.textContent = "পায়জামার সাইজ";
+                } else {
+                    defaultOption.textContent = "পাঞ্জাবির সাইজ";
+                }
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                modalSizeSelect.appendChild(defaultOption);
+
+                currentProduct.sizes.forEach(size => {
+                    const option = document.createElement('option');
+                    option.value = size;
+                    option.textContent = size;
+                    modalSizeSelect.appendChild(option);
+                });
+
+                modalQuantityInput.value = 1;
+                productModal.classList.remove('hidden');
+            }
+
+            // Function to close the modal
+            function closeProductModal() {
+                productModal.classList.add('hidden');
+            }
+            
+            // Function to update the cart summary UI and total price
+            function updateCartSummary() {
+                cartSummary.innerHTML = '';
+                let subTotal = 0;
+                
+                if (cart.length === 0) {
+                    cartSummary.innerHTML = `<p class="text-center text-gray-500">কার্ট খালি।</p>`;
+                    cartCount.textContent = '0';
+                    orderFormSection.classList.add('hidden');
+                    return;
+                }
+                
+                orderFormSection.classList.remove('hidden');
+                cartCount.textContent = cart.length;
+
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    subTotal += itemTotal;
+
+                    const cartItemDiv = document.createElement('div');
+                    cartItemDiv.className = 'flex justify-between items-center p-4 border-b border-gray-200 last:border-b-0';
+                    cartItemDiv.innerHTML = `
+                        <div class="flex-grow">
+                            <h4 class="font-semibold text-gray-800">${item.name} (${item.size})</h4>
+                            <p class="text-sm text-gray-600">৳${item.price} x ${item.quantity}</p>
+                        </div>
+                        <p class="font-bold text-gray-800 min-w-[70px] text-right">৳${itemTotal}</p>
+                        <button data-index="${index}" class="remove-item-btn ml-4 text-gray-500 hover:text-gray-700 transition-colors duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    `;
+                    cartSummary.appendChild(cartItemDiv);
+                });
+
+                // Add delivery charge based on location
+                const selectedLocation = deliveryLocationSelect.value;
+                const totalDeliveryCharge = deliveryCharges[selectedLocation] || 0;
+                
+                finalTotalElement.textContent = `৳${subTotal + totalDeliveryCharge}`;
+            }
+
+            // --- Event Listeners ---
+
+            // Event delegation for Add to Cart buttons
+            productGrid.addEventListener('click', (e) => {
+                if (e.target.classList.contains('add-to-cart-btn')) {
+                    const productId = e.target.getAttribute('data-product-id');
+                    openProductModal(productId);
+                }
+            });
+
+            // Close modal button
+            modalCloseBtn.addEventListener('click', closeProductModal);
+
+            // Add to Cart from modal (updated to show the new modal)
+            addToCartBtn.addEventListener('click', () => {
+                const selectedSize = modalSizeSelect.value;
+                const quantity = parseInt(modalQuantityInput.value);
+
+                if (!selectedSize || quantity < 1) {
+                    showMessage('অনুগ্রহ করে সাইজ এবং পরিমাণ নির্বাচন করুন।');
+                    return;
+                }
+                
+                closeProductModal(); // Close the first modal
+                continueShoppingModal.classList.remove('hidden'); // Show the new confirmation modal
+            });
+            
+            // New: Handle "হ্যাঁ" (Yes) click
+            continueShoppingYesBtn.addEventListener('click', () => {
+                // Add the product to the cart
+                const selectedSize = modalSizeSelect.value;
+                const quantity = parseInt(modalQuantityInput.value);
+                const existingItem = cart.find(item => item.id === currentProduct.id && item.size === selectedSize);
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({
+                        ...currentProduct,
+                        size: selectedSize,
+                        quantity: quantity
+                    });
+                }
+                updateCartSummary();
+
+                // Close the modal and show a message
+                continueShoppingModal.classList.add('hidden');
+                showMessage('কার্টে যোগ করা হয়েছে!');
+            });
+
+            // New: Handle "না" (No) click
+            continueShoppingNoBtn.addEventListener('click', () => {
+                 // Add the product to the cart
+                const selectedSize = modalSizeSelect.value;
+                const quantity = parseInt(modalQuantityInput.value);
+                const existingItem = cart.find(item => item.id === currentProduct.id && item.size === selectedSize);
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({
+                        ...currentProduct,
+                        size: selectedSize,
+                        quantity: quantity
+                    });
+                }
+                updateCartSummary();
+                
+                // Close the modal and scroll to the order form
+                continueShoppingModal.classList.add('hidden');
+                orderFormSection.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Scroll to order form when cart icon is clicked
+            cartIcon.addEventListener('click', () => {
+                if (cart.length > 0) {
+                    orderFormSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    showMessage('আপনার কার্ট খালি।');
+                }
+            });
+            
+            // Event delegation for removing items from cart
+            cartSummary.addEventListener('click', (e) => {
+                if (e.target.closest('.remove-item-btn')) {
+                    const index = parseInt(e.target.closest('.remove-item-btn').getAttribute('data-index'));
+                    cart.splice(index, 1);
+                    updateCartSummary();
+                }
+            });
+
+            // Update total price when delivery location changes
+            deliveryLocationSelect.addEventListener('change', updateCartSummary);
+            
+            // --- New Order Limit and Submission Logic ---
+            const ORDER_LIMIT_KEY = 'orderLimitData';
+            const ORDER_LIMIT_COUNT = 2; // Max orders allowed
+            const ORDER_LIMIT_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+            const CONTACT_PHONE_NUMBER = '+8801560025917'; // Your contact number
+
+            function getOrderData() {
+                const data = localStorage.getItem(ORDER_LIMIT_KEY);
+                return data ? JSON.parse(data) : { count: 0, timestamp: 0 };
+            }
+
+            function setOrderData(count, timestamp) {
+                const data = { count, timestamp };
+                localStorage.setItem(ORDER_LIMIT_KEY, JSON.stringify(data));
+            }
+
+            // Order Submission with new limit logic
+            customerInfoForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Get current order data from localStorage
+                const orderData = getOrderData();
+                const currentTime = new Date().getTime();
+
+                // Check if the 24-hour limit has expired
+                if (currentTime - orderData.timestamp > ORDER_LIMIT_DURATION) {
+                    // If expired, reset the counter for a new 24-hour cycle
+                    orderData.count = 0;
+                    orderData.timestamp = 0;
+                    setOrderData(0, 0); 
+                }
+
+                // Check if the order limit has been reached for this device
+                if (orderData.count >= ORDER_LIMIT_COUNT) {
+                    showMessage(`আপনার ডিভাইস থেকে ২৪ ঘন্টার মধ্যে সর্বোচ্চ ২ বার অর্ডার করা হয়েছে। আরও অর্ডারের জন্য অনুগ্রহ করে এই নাম্বারে কল করুন: ${CONTACT_PHONE_NUMBER}`);
+                    return; // Stop form submission
+                }
+
+                if (cart.length === 0) {
+                    showMessage('আপনার কার্ট খালি। অনুগ্রহ করে পণ্য যোগ করুন।');
+                    return;
+                }
+                
+                const customerName = document.getElementById('name').value;
+                const customerPhone = document.getElementById('phone').value;
+                const customerAddress = document.getElementById('address').value;
+                const deliveryLocation = deliveryLocationSelect.value;
+                const finalTotal = finalTotalElement.textContent;
+
+                // New: Simple phone number validation to prevent fake orders
+                // এটি বাংলাদেশের মোবাইল নম্বর ফরম্যাট চেক করবে
+                const bdPhoneRegex = /^(?:\+88|01)?\d{11}$/;
+                if (!bdPhoneRegex.test(customerPhone)) {
+                    showMessage('অনুগ্রহ করে একটি সঠিক ফোন নাম্বার দিন।');
+                    return; // স্টপ ফর্ম সাবমিশন
+                }
+
+                const orderDetails = {
+                    customerInfo: {
+                        name: customerName,
+                        phone: customerPhone,
+                        address: customerAddress
+                    },
+                    items: cart.map(item => ({
+                        code: item.id,
+                        name: item.name,
+                        size: item.size,
+                        quantity: item.quantity,
+                        unitPrice: item.price
+                    })),
+                    delivery: deliveryLocation,
+                    totalPrice: finalTotal
+                };
+
+                // Increment and update order count after successful validation
+                const newCount = orderData.count + 1;
+                const newTimestamp = orderData.timestamp === 0 ? currentTime : orderData.timestamp;
+                setOrderData(newCount, newTimestamp);
+
+                // Here you would send 'orderDetails' to your backend server via an API call
+                console.log('Final Order Details:', orderDetails);
+                
+                // Meta (Facebook) Purchase Event:
+                // এটি মেটা পিক্সেলকে অর্ডার সফল হওয়ার কথা জানাবে।
+                // 'value' এবং 'currency' আপনার অর্ডারের মোট মূল্য এবং মুদ্রা নির্দেশ করে।
+                const numericTotalPrice = parseFloat(finalTotal.replace('৳', ''));
+                if (typeof fbq === 'function') {
+                    fbq('track', 'Purchase', {
+                        value: numericTotalPrice,
+                        currency: 'BDT', // বাংলাদেশী টাকা
+                        content_type: 'product',
+                        content_ids: cart.map(item => item.id)
+                    });
+                }
+                
+                // Show confirmation modal
+                confirmationMessage.innerHTML = `আপনার অর্ডারটি সফলভাবে জমা হয়েছে। খুব শীঘ্রই আমাদের একজন প্রতিনিধি আপনার সাথে যোগাযোগ করবেন। যেকোনো প্রয়োজনে এই নাম্বারে কল করুন: ${CONTACT_PHONE_NUMBER}`;
+                confirmationModal.classList.remove('hidden');
+
+                // Reset cart and form after a successful order
+                cart = [];
+                updateCartSummary();
+                customerInfoForm.reset();
+            });
+
+            confirmationCloseBtn.addEventListener('click', () => {
+                confirmationModal.classList.add('hidden');
+            });
+            
+            // Initial call to render products on page load
+            renderProducts();
+        });
+    </script>
+</body>
+</html>
